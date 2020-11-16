@@ -236,14 +236,14 @@ def compras():
 
 
 @app.route("/nueva-compra", methods=['GET', "POST"])
-def NuevaVenta():
+def NuevaCompra():
     productos = Producto.query.all()
     proveedorList = Proveedor.query.all()
     return render_template('compras/compras.html', productos=productos, proveedores=proveedorList, titulo='Compra de Productos')
 
 
 @app.route("/compras/cabecera/nueva", methods=['POST'])
-def ventaNueva():
+def compraNueva():
     try:
         content = request.get_json(force=True)
         details = content["productosTabla"]
