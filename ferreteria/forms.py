@@ -1,6 +1,5 @@
 from flask_wtf import FlaskForm
 from wtforms.fields import StringField, PasswordField, SubmitField, TextAreaField, FloatField, IntegerField, SelectField
-from wtforms_html5 import DateField, DateRange
 from wtforms_html5 import Length
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from ferreteria.models import Usuario, Cliente, Proveedor, Producto, Unidad, Categoria, Compra, DetalleCompra, Venta, DetalleVenta
