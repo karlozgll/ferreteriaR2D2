@@ -2,23 +2,19 @@
 {% block content %}
     <div>
       <div class="card">
-        <h3 class="form-title">Datos de la venta</h3>
+        <h3 class="form-title">Datos de la compra</h3>
         <div class="form-cabecera">
         <div>
             <label for="cliente"> Cliente </label>
-            <select id="selectedCliente">
-              {% for cliente in clientes %}
-                <option value={{cliente.id}}>{{cliente.nombre}} {{cliente.apellido}}</option>
+            <select id="selectedProveedor">
+              {% for proveedor in proveedores %}
+                <option value={{proveedor.id}}>{{proveedor.razon_social}}</option>
               {% endfor %}
             </select>
           </div>
           <div>
             <label for="numero_comprobante"> Nro Comprobante </label>
             <input id="numero_comprobante" type="number" />
-          </div>
-          <div>
-            <label for="descuento"> Descuento </label>
-            <input id="descuento" type="number" onchange="calcularTotal()" />
           </div>
           <div>
             <label for="total"> Total </label>
@@ -54,7 +50,7 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Producto</th>
-              <th scope="col">Precio Venta</th>
+              <th scope="col">Precio compra</th>
               <th scope="col">Cantidad</th>
               <th scope="col">Subtotal</th>
             </tr>
@@ -64,8 +60,8 @@
         </table>
       </div>
       <div class="Guardar-data">
-        <button class="btn btn-primary" onclick="guardarVenta()">Guardar data</button>
+        <button class="btn btn-primary" onclick="guardarCompra()">Guardar compra</button>
       </div>
     </div>
-    <script src="../../static/js/ventas.js"></script>
+    <script src="../../static/js/compras.js"></script>
 {% endblock %}
