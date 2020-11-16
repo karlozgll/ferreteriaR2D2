@@ -16,3 +16,8 @@
     display: flex;
     flex-direction: column;
 }
+
+.Guardar-data { 
+    display : flex ; 
+    justify-content : flex-end;
+}
