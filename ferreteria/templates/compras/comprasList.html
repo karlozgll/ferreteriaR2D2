@@ -3,7 +3,7 @@
 <div class="mx-auto" style="width: 80%">
     <div class="d-flex mb-5">
         <h1 class="text-center" style="width: 90%"> {{titulo}} </h1>
-        <a href="{{url_for('NuevaVenta')}}" class="btn btn-primary btn-sm align-middle">VENDER PRODUCTO</a>
+        <a href="{{url_for('NuevaCompra')}}" class="btn btn-primary btn-sm align-middle">Comprar Producto</a>
     </div>
     <hr>
     <table class="table table-bordered mx-auto" style="width: 100%;">
@@ -11,22 +11,22 @@
             <tr class="text-center text-white" style="background-color: #00001bf3;">
                 <th scope="col">#</th>
                 <th scope="col">Fecha</th>
-                <th scope="col">Descuento</th>
                 <th scope="col">Total</th>
-                <th scope="col">Cliente</th>
+                <th scope="col">N° comprobante</th>
+                <th scope="col">Proveedor</th>
             </tr>
         </thead>
         <tbody id="usuarios">
-            {% for venta in ventas %}
+            {% for compra in compras %}
             <tr class="text-center">
-                <th>{{venta.id}}</th>
-                <td>{{venta.fecha}}</td>
-                <td>{{venta.descuento}}</td>
-                <td>{{venta.total}}</td>
-                <td>{{venta.cliente_id}}</td>
+                <th>{{compra.id}}</th>
+                <td>{{compra.fecha}}</td>
+                <td>{{compra.total}}</td>
+                <td>{{compra.numero_comprobante}}</td>
+                <td>{{compra.proveedor_id}}</td>
             </tr>
             {% endfor %}
         </tbody>
       </table>
 </div>
-{% endblock %}
+{% endblock %
