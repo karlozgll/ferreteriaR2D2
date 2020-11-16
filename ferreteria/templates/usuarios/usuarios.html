@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="mx-auto" style="width: 80%">
+    <div class="d-flex mb-5">
+        <h1 class="text-center" style="width: 90%"> {{titulo}} </h1>
+        <a href="{{url_for('regUsuario')}}" class="btn btn-primary btn-sm align-middle">AGREGAR USUARIO</a>
+    </div>
+    <hr>
+    <table class="table table-bordered mx-auto" style="width: 100%;">
+        <thead>
+            <tr class="text-center text-white" style="background-color: #00001bf3;">
+                <th scope="col">#</th>
+                <th scope="col">Nombre y Apellido</th>
+                <th scope="col">Email</th>
+                <th scope="col">Nombre de Usuario</th>
+                <th colspan="2">Opciones</th>
+            </tr>
+        </thead>
+        <tbody id="usuarios">
+            {% for usuario in usuarios %}
+            <tr class="text-center">
+                <th>{{usuario.id}}</th>
+                <td>{{usuario.nombre}} {{usuario.apellido}}</td>
+                <td>{{usuario.email}}</td>
+                <td>{{usuario.nickname}}</td>
+                <td>
+                    <a href="{{url_for('actUsuario',id=usuario.id)}}" class="btn btn-info btn-sm">Actualizar</a>
+                </td>
+                <td>
+                    <a href="{{url_for('elimUsuario',id=usuario.id)}}" class="btn btn-danger btn-sm btnRojo" onclick="confirmar(event)">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

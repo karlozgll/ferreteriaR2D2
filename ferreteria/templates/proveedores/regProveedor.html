@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1 class="text-center">{% block title %} Proveedores {% endblock %}</h1>
+<form action="" method="POST" style="width: 40%" class="mx-auto mb-5">
+    {{form.hidden_tag()}}
+    <h3 class="text-center">{{encabezado}}</h3>
+    <hr>
+    <div class="form-group">
+        {{form.razonSocial.label}}
+        {% if form.razonSocial.errors %}
+        {{form.razonSocial(class='form-control is-invalid')}}
+        <div class="invalid-feedback">
+            {% for error in form.razonSocial.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{form.razonSocial(class='form-control')}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{form.direccion.label}}
+        {% if form.direccion.errors %}
+        {{form.direccion(class='form-control is-invalid')}}
+        <div class="invalid-feedback">
+            {% for error in form.direccion.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{form.direccion(class='form-control')}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{form.celular.label}}
+        {% if form.celular.errors %}
+        {{form.celular(class='form-control is-invalid')}}
+        <div class="invalid-feedback">
+            {% for error in form.celular.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{form.celular(class='form-control')}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{form.email.label}}
+        {% if form.email.errors %}
+        {{form.email(class='form-control is-invalid')}}
+        <div class="invalid-feedback">
+            {% for error in form.email.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{form.email(class='form-control')}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{form.submit(class='btn btn-outline-info')}}
+    </div>
+</form>
+{% endblock %}

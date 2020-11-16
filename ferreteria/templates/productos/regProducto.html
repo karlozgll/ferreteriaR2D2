@@ -1,0 +1,103 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1 class="text-center">{% block title %} Productos {% endblock %}</h1>
+<form action="" method="POST" style="width: 40%" class="mx-auto mb-5">
+    {{form.hidden_tag()}}
+    <h3 class="text-center">{{encabezado}}</h3>
+    <hr>
+    <div class="form-group">
+        {{form.categoria.label}}
+        {% if form.categoria.errors %}
+        {{form.categoria(class='form-control is-invalid')}}
+        <div class="invalid-feedback">
+            {% for error in form.categoria.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{form.categoria(class='form-control')}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{form.unidad.label}}
+        {% if form.unidad.errors %}
+        {{form.unidad(class='form-control is-invalid')}}
+        <div class="invalid-feedback">
+            {% for error in form.unidad.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{form.unidad(class='form-control')}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{form.proveedor.label}}
+        {% if form.proveedor.errors %}
+        {{form.proveedor(class='form-control is-invalid')}}
+        <div class="invalid-feedback">
+            {% for error in form.proveedor.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{form.proveedor(class='form-control')}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{form.nombre.label}}
+        {% if form.nombre.errors %}
+        {{form.nombre(class='form-control is-invalid')}}
+        <div class="invalid-feedback">
+            {% for error in form.nombre.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{form.nombre(class='form-control')}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{form.precioCompra.label}}
+        {% if form.precioCompra.errors %}
+        {{form.precioCompra(class='form-control is-invalid')}}
+        <div class="invalid-feedback">
+            {% for error in form.precioCompra.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{form.precioCompra(class='form-control')}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{form.precioVenta.label}}
+        {% if form.precioVenta.errors %}
+        {{form.precioVenta(class='form-control is-invalid')}}
+        <div class="invalid-feedback">
+            {% for error in form.precioVenta.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{form.precioVenta(class='form-control')}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{form.cantidad.label}}
+        {% if form.cantidad.errors %}
+        {{form.cantidad(class='form-control is-invalid')}}
+        <div class="invalid-feedback">
+            {% for error in form.cantidad.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{form.cantidad(class='form-control')}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{form.submit(class='btn btn-outline-info')}}
+    </div>
+</form>
+{% endblock %}

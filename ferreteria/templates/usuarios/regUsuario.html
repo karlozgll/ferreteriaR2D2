@@ -1,0 +1,77 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1 class="text-center">{% block title %} {{titulo}} {% endblock %}</h1>
+<form action="" method="POST" style="width: 40%" class="mx-auto mb-5">
+    {{form.hidden_tag()}}
+    <h3 class="text-center">{{encabezado}}</h3>
+    <hr>
+    <div class="form-group">
+        {{form.nombre.label}}
+        {% if form.nombre.errors %}
+        {{form.nombre(class='form-control is-invalid')}}
+        <div class="invalid-feedback">
+            {% for error in form.nombre.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{form.nombre(class='form-control')}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{form.apellido.label}}
+        {% if form.apellido.errors %}
+        {{form.apellido(class='form-control is-invalid')}}
+        <div class="invalid-feedback">
+            {% for error in form.apellido.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{form.apellido(class='form-control')}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{form.email.label}}
+        {% if form.email.errors %}
+        {{form.email(class='form-control is-invalid')}}
+        <div class="invalid-feedback">
+            {% for error in form.email.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{form.email(class='form-control')}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{form.nickname.label}}
+        {% if form.nickname.errors %}
+        {{form.nickname(class='form-control is-invalid')}}
+        <div class="invalid-feedback">
+            {% for error in form.nickname.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{form.nickname(class='form-control')}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{form.password.label}}
+        {% if form.password.errors %}
+        {{form.password(class='form-control is-invalid')}}
+        <div class="invalid-feedback">
+            {% for error in form.password.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{form.password(class='form-control')}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{form.submit(class='btn btn-outline-info')}}
+    </div>
+</form>
+{% endblock %}
