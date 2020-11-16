@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="mx-auto" style="width: 80%">
+    <div class="d-flex mb-5">
+        <h1 class="text-center" style="width: 90%"> {{titulo}} </h1>
+        <a href="{{url_for('NuevaVenta')}}" class="btn btn-primary btn-sm align-middle">VENDER</a>
+    </div>
+    <hr>
+    <table class="table table-bordered mx-auto" style="width: 100%;">
+        <thead>
+            <tr class="text-center text-white" style="background-color: #00001bf3;">
+                <th scope="col">#</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Descuento</th>
+                <th scope="col">Total</th>
+                <th scope="col">Cliente</th>
+            </tr>
+        </thead>
+        <tbody id="usuarios">
+            {% for venta in ventas %}
+            <tr class="text-center">
+                <th>{{venta.id}}</th>
+                <td>{{venta.fecha}}</td>
+                <td>{{venta.descuento}}</td>
+                <td>{{venta.total}}</td>
+                <td>{{venta.cliente_id}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

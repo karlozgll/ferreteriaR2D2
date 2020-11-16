@@ -166,6 +166,11 @@ def elimProducto(id):
 
 @app.route("/ventas",methods = ['GET',"POST"])
 def ventas():
+    ventas = Venta.query.all()
+    return render_template('ventas/ventasList.html',ventas=ventas, titulo='Ventas de Productos')
+
+@app.route("/nueva-venta",methods = ['GET',"POST"])
+def NuevaVenta():
     productos = Producto.query.all()
     clientes = Cliente.query.all()
     return render_template('ventas/ventas.html',productos=productos, clientes=clientes, titulo='Venta de Productos')
@@ -179,4 +184,24 @@ def ajaxProducto(id):
         precio_compra = str(productoObt.precio_compra),
         precio_venta = str(productoObt.precio_venta),
         stock = productoObt.cantidad
+    )
+
+@app.route("/ventas/cabecera/nueva" , methods = ['POST'])
+def ventaNueva():
+    content = request.get_json(force = True)
+    details = content["productosTabla"]
+    NuevaVentaContent = Venta(descuento = content["descuento"] , 
+    total = content["total"] , numero_comprobante = content["numero_comprobante"] , cliente_id = content["selectedCliente"])
+    db.session.add(NuevaVentaContent)
+    db.session.flush()
+    db.session.commit()
+
+    for detail in details:
+        contentDetail = DetalleVenta(producto_id = detail["id_product"] ,
+        cantidad = detail["cantidad"] , compra_id = NuevaVentaContent.id)
+        db.session.add(contentDetail)
+        db.session.commit()
+    
+    return jsonify(
+        id_venta = "20"
     )
