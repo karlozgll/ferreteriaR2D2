@@ -6,6 +6,7 @@ from flask import send_from_directory
 from datetime import datetime
 from sqlalchemy import or_, and_
 from fpdf import FPDF
+import ferreteria.clases.pdf as pdf
 import os
 import json
 
@@ -113,6 +114,27 @@ def elimCliente(id):
     flash(f'El cliente se ha eliminado con éxito!!!', 'success')
     return redirect(url_for('clientes'))
 
+@app.route("/actCliente/<int:id>", methods=["GET", "POST"])
+def actCliente(id):
+    form = RegClienteForm()
+    cliente = Cliente.query.get(id)
+    if form.is_submitted():
+        cliente.nombre = form.nombre.data
+        cliente.apellido = form.apellido.data
+        cliente.direccion = form.direccion.data
+        cliente.celular = form.celular.data
+        cliente.email = form.email.data
+        db.session.commit()
+        flash(f'Se ha actualizado un cliente con éxito!!!', 'success')
+        return redirect(url_for('clientes'))
+    elif request.method == 'GET':
+        form.nombre.data = cliente.nombre
+        form.apellido.data = cliente.apellido
+        form.email.data = cliente.email
+        form.direccion.data = cliente.direccion
+        form.celular.data = cliente.celular
+    return render_template("clientes/regCliente.html", form=form, titulo='Actualizar Cliente')
+
 #########----------- PROVEEDOR -----------#########
 
 
@@ -142,6 +164,25 @@ def elimProveedor(id):
     db.session.commit()
     flash(f'El proveedor se ha eliminado con éxito!!!', 'success')
     return redirect(url_for('proveedores'))
+
+@app.route("/actProveedor/<int:id>", methods=["GET", "POST"])
+def actProveedor(id):
+    form = RegProveedorForm()
+    proveedor = Proveedor.query.get(id)
+    if form.is_submitted():
+        proveedor.razon_social = form.razonSocial.data
+        proveedor.direccion = form.direccion.data
+        proveedor.celular = form.celular.data
+        proveedor.email = form.email.data
+        db.session.commit()
+        flash(f'Se ha actualizado un proveedor con éxito!!!', 'success')
+        return redirect(url_for('proveedores'))
+    elif request.method == 'GET':
+        form.razonSocial.data = proveedor.razon_social
+        form.email.data = proveedor.email
+        form.direccion.data = proveedor.direccion
+        form.celular.data = proveedor.celular
+    return render_template("proveedores/regProveedor.html", form=form, titulo='Actualizar Proveedor')
 
 #########----------- PRODUCTOS -----------#########
 
@@ -181,6 +222,34 @@ def elimProducto(id):
     flash(f'El producto se ha eliminado con éxito!!!', 'success')
     return redirect(url_for('productos'))
 
+@app.route("/actProducto/<int:id>", methods=["GET", "POST"])
+def actProducto(id):
+    form = RegProductoForm()
+    producto = Producto.query.get(id)
+    categorias = Categoria.query.all()
+    unidades = Unidad.query.all()
+    proveedores = Proveedor.query.all()
+    
+    if form.is_submitted():
+        producto.categoria_id = form.categoria.data
+        producto.unidad_id = form.unidad.data
+        producto.proveedor_id = form.proveedor.data
+        producto.nombre = form.nombre.data
+        producto.precio_compra = form.precioCompra.data
+        producto.precio_venta = form.precioVenta.data
+        producto.cantidad = form.cantidad.data
+        db.session.commit()
+        flash(f'Se ha actualizado un producto con éxito!!!', 'success')
+        return redirect(url_for('productos'))
+    elif request.method == 'GET':
+        form.categoria.choices = [(c.id, c.nombre) for c in categorias]
+        form.unidad.choices = [(u.id, u.nombre) for u in unidades]
+        form.proveedor.choices = [(p.id, p.razon_social) for p in proveedores]
+        form.nombre.data = producto.nombre
+        form.precioCompra.data = producto.precio_compra
+        form.precioVenta.data = producto.precio_venta
+        form.cantidad.data = producto.cantidad
+    return render_template("productos/regProducto.html", form=form, titulo='Actualizar Producto')
 
 @app.route("/producto/ajax/<int:id>", methods=['GET'])
 def ajaxProducto(id):
@@ -261,3 +330,15 @@ def compraNueva():
     except expression as identifier:
         flash(f'No se pudo guardar la compra', 'error')
     return redirect(url_for('compras'))
+
+@app.route('/reportarVentas', methods=['GET', 'POST'])
+def reportarVentas():
+    ventas = db.session.query(Venta).all()
+    respuesta = pdf.pdfVentas(ventas)
+    return respuesta
+
+@app.route('/reportarCompras', methods=['GET', 'POST'])
+def reportarCompras():
+    compras = db.session.query(Compra).all()
+    respuesta = pdf.pdfVentas(compras)
+    return respuesta
