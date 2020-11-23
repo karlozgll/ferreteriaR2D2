@@ -1,1 +1,3 @@
 venv
+ferreteria/__pycache__/*
+ferreteria/__init__.py
