@@ -275,7 +275,7 @@ def NuevaVenta():
     return render_template('ventas/ventas.html', productos=productos, clientes=clientes, titulo='Venta de Productos')
 
 
-@app.route("/ventas/cabecera/nueva", methods=['POST'])
+@app.route("/ventas/cabecera/nueva", methods=['GET','POST'])
 def ventaNueva():
     try:
         content = request.get_json(force=True)
@@ -297,7 +297,6 @@ def ventaNueva():
         flash(f'La venta se ha guardado con éxito!!!', 'success')
     except:
         flash(f'No se pudo guardar la venta', 'error')
-    return redirect('/ventas')
 
 @app.route("/compras", methods=['GET', "POST"])
 def compras():
@@ -312,7 +311,7 @@ def NuevaCompra():
     return render_template('compras/compras.html', productos=productos, proveedores=proveedorList, titulo='Compra de Productos')
 
 
-@app.route("/compras/cabecera/nueva", methods=['POST'])
+@app.route("/compras/cabecera/nueva", methods=['GET','POST'])
 def compraNueva():
     try:
         content = request.get_json(force=True)
@@ -330,10 +329,8 @@ def compraNueva():
             productMod = Producto.query.get(detail["id_product"])
             productMod.cantidad = int(productMod.cantidad) + int(detail["cantidad"])
             db.session.commit()
-        flash(f'La compra se ha guardado con éxito!!!', 'success')
     except:
         flash(f'No se pudo guardar la compra', 'error')
-    return redirect('/compras')
 
 @app.route('/reportarVentas', methods=['GET', 'POST'])
 def reportarVentas():

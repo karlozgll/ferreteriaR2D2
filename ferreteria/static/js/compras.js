@@ -50,5 +50,5 @@ const guardarCompra = () => {
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
     body : JSON.stringify({ selectedProveedor , numero_comprobante , total , productosTabla })
-  })
+  }).then(() => window.location.href = "http://localhost/compras")
 }
