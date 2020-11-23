@@ -10,7 +10,6 @@ import ferreteria.clases.pdf as pdf
 import os
 import json
 
-
 @app.route("/home", methods=["GET"])
 def home():
     return render_template("home.html")
@@ -292,11 +291,13 @@ def ventaNueva():
                                          cantidad=detail["cantidad"], compra_id=NuevaVentaContent.id)
             db.session.add(contentDetail)
             db.session.commit()
+            productMod = Producto.query.get(detail["id_product"])
+            productMod.cantidad = int(productMod.cantidad) - int(detail["cantidad"])
+            db.session.commit()
         flash(f'La venta se ha guardado con éxito!!!', 'success')
-    except expression as identifier:
+    except:
         flash(f'No se pudo guardar la venta', 'error')
-    return redirect(url_for('ventas'))
-
+    return redirect('/ventas')
 
 @app.route("/compras", methods=['GET', "POST"])
 def compras():
@@ -326,10 +327,13 @@ def compraNueva():
                                           cantidad=detail["cantidad"], compra_id=NuevaCompraContent.id)
             db.session.add(contentDetail)
             db.session.commit()
+            productMod = Producto.query.get(detail["id_product"])
+            productMod.cantidad = int(productMod.cantidad) + int(detail["cantidad"])
+            db.session.commit()
         flash(f'La compra se ha guardado con éxito!!!', 'success')
-    except expression as identifier:
+    except:
         flash(f'No se pudo guardar la compra', 'error')
-    return redirect(url_for('compras'))
+    return redirect('/compras')
 
 @app.route('/reportarVentas', methods=['GET', 'POST'])
 def reportarVentas():
@@ -340,5 +344,5 @@ def reportarVentas():
 @app.route('/reportarCompras', methods=['GET', 'POST'])
 def reportarCompras():
     compras = db.session.query(Compra).all()
-    respuesta = pdf.pdfVentas(compras)
+    respuesta = pdf.pdfCompras(compras)
     return respuesta
