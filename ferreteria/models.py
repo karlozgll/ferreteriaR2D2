@@ -56,6 +56,7 @@ class DetalleCompra(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     producto_id = db.Column(db.Integer, db.ForeignKey('producto.id'), nullable=False)
     cantidad = db.Column(db.Integer, unique=False, nullable=False)
+    precio_unitario = db.Column(db.Numeric(12,2), unique=False, nullable=False)
     compra_id = db.Column(db.Integer, db.ForeignKey('compra.id'), nullable=False)
 
 class Venta(db.Model):
@@ -71,4 +72,5 @@ class DetalleVenta(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     producto_id = db.Column(db.Integer, db.ForeignKey('producto.id'), nullable=False)
     cantidad = db.Column(db.Integer, unique=False, nullable=False)
-    compra_id = db.Column(db.Integer, db.ForeignKey('venta.id'), nullable=False)
+    precio_unitario = db.Column(db.Numeric(12,2), unique=False, nullable=False)
+    venta_id = db.Column(db.Integer, db.ForeignKey('venta.id'), nullable=False)

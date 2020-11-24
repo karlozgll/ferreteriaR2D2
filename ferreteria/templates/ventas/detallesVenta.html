@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="mx-auto" style="width: 80%">
+    <div class="d-flex mb-5">
+        <h1 class="text-center" style="width: 90%"> {{titulo}} </h1>
+    </div>
+    <hr>
+    <table class="table table-bordered mx-auto" style="width: 100%;">
+        <thead>
+            <tr class="text-center text-white" style="background-color: #00001bf3;">
+                <th scope="col">#</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio unitario</th>
+            </tr>
+        </thead>
+        <tbody id="usuarios">
+            {% for detalle in detalles %}
+            <tr class="text-center">
+                <th>{{detalle.id}}</th>
+                <td>{{detalle.producto_id}}</td>
+                <td>{{detalle.cantidad}}</td>
+                <td>{{detalle.precio_unitario}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

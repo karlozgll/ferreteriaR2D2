@@ -267,6 +267,10 @@ def ventas():
     ventas = Venta.query.all()
     return render_template('ventas/ventasList.html', ventas=ventas, titulo='Ventas de Productos')
 
+@app.route("/ventas/detalle/<int:id>", methods=['GET', "POST"])
+def DetalleVentas(id):
+    detalleVenta1 = DetalleVenta.query.filter(DetalleVenta.venta_id == id)
+    return render_template('ventas/detallesVenta.html', detalles=detalleVenta1, titulo='Detalles de la venta ')
 
 @app.route("/nueva-venta", methods=['GET', "POST"])
 def NuevaVenta():
@@ -287,23 +291,29 @@ def ventaNueva():
         db.session.commit()
 
         for detail in details:
-            contentDetail = DetalleVenta(producto_id=detail["id_product"],
-                                         cantidad=detail["cantidad"], compra_id=NuevaVentaContent.id)
+            contentDetail = DetalleVenta(producto_id=detail["id_product"], cantidad=detail["cantidad"], 
+                                        precio_unitario = detail["precio_venta"],venta_id = NuevaVentaContent.id)
             db.session.add(contentDetail)
             db.session.commit()
             productMod = Producto.query.get(detail["id_product"])
             productMod.cantidad = int(productMod.cantidad) - int(detail["cantidad"])
             db.session.commit()
         flash(f'La venta se ha guardado con éxito!!!', 'success')
+        return False
     except:
         flash(f'No se pudo guardar la venta', 'error')
+        return False
 
 @app.route("/compras", methods=['GET', "POST"])
 def compras():
     compras = Compra.query.all()
     return render_template('compras/comprasList.html', compras=compras, titulo='Compras de Productos')
 
-
+@app.route("/compras/detalle/<int:id>", methods=['GET', "POST"])
+def DetalleCompras(id):
+    detalleCompra = DetalleCompra.query.filter(DetalleCompra.compra_id == id)
+    return render_template('compras/detallesCompra.html', detalles=detalleCompra, titulo='Detalles de la compra ')
+    
 @app.route("/nueva-compra", methods=['GET', "POST"])
 def NuevaCompra():
     productos = Producto.query.all()
@@ -322,15 +332,17 @@ def compraNueva():
         db.session.flush()
         db.session.commit()
         for detail in details:
-            contentDetail = DetalleCompra(producto_id=detail["id_product"],
+            contentDetail = DetalleCompra(producto_id=detail["id_product"],precio_unitario = detail["precio_compra"],
                                           cantidad=detail["cantidad"], compra_id=NuevaCompraContent.id)
             db.session.add(contentDetail)
             db.session.commit()
             productMod = Producto.query.get(detail["id_product"])
             productMod.cantidad = int(productMod.cantidad) + int(detail["cantidad"])
             db.session.commit()
+        return False
     except:
         flash(f'No se pudo guardar la compra', 'error')
+        return False
 
 @app.route('/reportarVentas', methods=['GET', 'POST'])
 def reportarVentas():

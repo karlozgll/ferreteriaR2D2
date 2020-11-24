@@ -32,6 +32,7 @@ const cargarData = () => {
     .then((response) => response.json())
     .then((data) => {
       if (data.stock > cantidad.value && cantidad.value > 0) {
+        console.log(data)
         agregarProducto({
           ...data,
           cantidad: cantidad.value,
