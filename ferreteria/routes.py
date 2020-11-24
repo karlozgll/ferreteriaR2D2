@@ -275,7 +275,7 @@ def NuevaVenta():
     return render_template('ventas/ventas.html', productos=productos, clientes=clientes, titulo='Venta de Productos')
 
 
-@app.route("/ventas/cabecera/nueva", methods=['GET','POST'])
+@app.route("/ventas/cabecera/nueva", methods=['POST'])
 def ventaNueva():
     try:
         content = request.get_json(force=True)
@@ -311,7 +311,7 @@ def NuevaCompra():
     return render_template('compras/compras.html', productos=productos, proveedores=proveedorList, titulo='Compra de Productos')
 
 
-@app.route("/compras/cabecera/nueva", methods=['GET','POST'])
+@app.route("/compras/cabecera/nueva", methods=['POST'])
 def compraNueva():
     try:
         content = request.get_json(force=True)
